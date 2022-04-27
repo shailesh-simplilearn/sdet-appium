@@ -1,6 +1,7 @@
 package main;
 
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterSuite;
@@ -23,19 +24,22 @@ public class FirstAppiumClass extends Base {
 		 */
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.clicknViewLink();
-		
+
 		Thread.sleep(3000);
 
 	}
 
 	@Test
 	public void addTestButton() {
-		MobileElement el1 = (MobileElement) driver.findElementByAccessibilityId("Text");
-		el1.click();
-		MobileElement el2 = (MobileElement) driver.findElementByAccessibilityId("LogTextBox");
-		el2.click();
-		MobileElement el3 = (MobileElement) driver.findElementByAccessibilityId("Add");
-		el3.click();
+		/*
+		 * MobileElement el1 = (MobileElement)
+		 * driver.findElementByAccessibilityId("Text"); el1.click(); MobileElement el2 =
+		 * (MobileElement) driver.findElementByAccessibilityId("LogTextBox");
+		 * el2.click(); MobileElement el3 = (MobileElement)
+		 * driver.findElementByAccessibilityId("Add"); el3.click();
+		 */
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.addButtonSteps();
 		MobileElement text = (MobileElement) driver.findElement(By.id("io.appium.android.apis:id/text"));
 		System.out.println("******" + text.getText());
 		SoftAssert softAssert = new SoftAssert();
@@ -48,21 +52,19 @@ public class FirstAppiumClass extends Base {
 		el1.click();
 
 		MethodClass methods = new MethodClass();
-		methods.scrollViaCordinates(Constants.longX, Constants.longY, Constants.moveX, 
-				Constants.moveY, driver);
-		methods.scrollViaCordinates(Constants.longX, Constants.longY, Constants.moveX, 
-				Constants.moveY, driver);
-				
+		methods.scrollViaCordinates(Constants.longX, Constants.longY, Constants.moveX, Constants.moveY, driver);
+		methods.scrollViaCordinates(Constants.longX, Constants.longY, Constants.moveX, Constants.moveY, driver);
+
 		MobileElement el2 = (MobileElement) driver.findElementByAccessibilityId("TextFields");
 		el2.click();
-		
+
 		Thread.sleep(3000);
-		MobileElement textBox1 = (MobileElement) driver.findElement
-				(By.id("io.appium.android.apis:id/edit"));
+		MobileElement textBox1 = (MobileElement) driver.findElement(By.id("io.appium.android.apis:id/edit"));
 		textBox1.clear();
 		textBox1.sendKeys("This is Test");
 
 	}
+
 	@Test
 	@SneakyThrows
 	public void checkBox() throws InterruptedException {
@@ -75,7 +77,28 @@ public class FirstAppiumClass extends Base {
 		driver.findElementById("io.appium.android.apis:id/radio1").click();
 		driver.findElementById("io.appium.android.apis:id/radio2").click();
 		Thread.sleep(3000);
-		
+
+	}
+
+	@Test
+	public void dropDown() {
+		MobileElement el1 = (MobileElement) driver.findElementByAccessibilityId("Views");
+		el1.click();
+		MethodClass methods = new MethodClass();
+		methods.scrollViaCordinates(Constants.longX, Constants.longY, Constants.moveX, Constants.moveY, driver);
+		methods.scrollViaCordinates(Constants.longX, Constants.longY, Constants.moveX, Constants.moveY, driver);
+		driver.findElementByAccessibilityId("Spinner").click();
+		driver.findElementById("io.appium.android.apis:id/spinner2").click();
+		List<MobileElement> dropDownList = driver.findElements(By.xpath(
+				"/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.CheckedTextView"));
+		for (MobileElement mobileElement : dropDownList) {
+			System.out.println(mobileElement.getText());
+			if (mobileElement.getText().equalsIgnoreCase("jupiter")) {
+				mobileElement.click();
+				break;
+			}
+
+		}
 	}
 
 	@AfterSuite
