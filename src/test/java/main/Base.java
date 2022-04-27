@@ -33,7 +33,7 @@ public class Base {
 		
 		
 		String userName = "shaileshgohel_kR4gyt";
-		  String accessKey = "kfz1Y3Ja6yMe6iEsxhJ6";
+		  String accessKey = 
 		
 		
 		
